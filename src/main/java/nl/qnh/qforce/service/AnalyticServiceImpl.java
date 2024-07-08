@@ -19,6 +19,8 @@ public class AnalyticServiceImpl implements AnalyticsService {
 
     @Override
     public void storeAnalytics(String requestName) {
+        try{
+
         Optional<Analytics> analytics = analyticRepository.findById(requestName);
 
         Analytics newAnalytics;
@@ -33,5 +35,9 @@ public class AnalyticServiceImpl implements AnalyticsService {
         }
 
         analyticRepository.save(newAnalytics);
+        } catch (Exception e){
+            //Catching everything as this is a secondary flow
+            System.out.println("Exception while trying to save analytics");
+        }
     }
 }

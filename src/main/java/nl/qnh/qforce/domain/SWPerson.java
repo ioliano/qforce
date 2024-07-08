@@ -37,10 +37,10 @@ public class SWPerson implements Person {
     @JsonAlias({"films", "moviesUrl"})
     //Ensuring it's written but not sent to the client by the controller
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-//    @JsonIgnore
     private List<String> moviesUrl;
 
     @JsonIgnore
+    //Ensuring this is not sent to the client aswell
     private List<SWMovie> swMovies;
 
     @Override

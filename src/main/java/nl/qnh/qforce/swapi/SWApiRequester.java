@@ -34,7 +34,11 @@ public class SWApiRequester {
 
     public Optional<SWPerson> searchPersonById(long id) {
         Optional<SWPerson> personOptional = swApiPersonInterface.searchPersonById(id).blockOptional();
-        personOptional.ifPresent(this::populateMovies);
+        personOptional.ifPresent(p -> {
+            this.populateMovies(p);
+            //Id is not coming in the json
+            p.setId(id);
+        });
         return personOptional;
     }
 

@@ -24,20 +24,20 @@ public class PersonController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Person> getPersonById(@PathVariable Long id) {
-        Optional<Person> person = personService.get(id);
         analyticsService.storeAnalytics("getPersonById");
+        Optional<Person> person = personService.get(id);
         return person.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
     public ResponseEntity<List<Person>> searchPersons(@RequestParam("q") String characterName) {
+        analyticsService.storeAnalytics("searchPersons");
         if (characterName.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
         List<Person> persons = personService.search(characterName);
-        analyticsService.storeAnalytics("searchPersons");
         if (persons.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
